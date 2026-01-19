@@ -6,12 +6,21 @@
 // @author       Achim Dräger
 // @match        *://*.google.com/*
 // @match        *://*.docebosaas.com/*
-// @grant        none
+// @grant        GM_registerMenuCommand
 // @run-at       document-end
 // ==/UserScript==
 
 (function() {
     'use strict';
+
+    // URL anpassen: "zertifizierung-" durch "uebung-" ersetzen
+    function replaceUrlPath() {
+        const currentUrl = window.location.href;
+        if (/zertifizierung-/gi.test(currentUrl)) {
+            const newUrl = currentUrl.replace(/zertifizierung-/gi, 'uebung-');
+            history.replaceState(null, '', newUrl);
+        }
+    }
 
     function processTextNode(node) {
         let text = node.nodeValue;
@@ -79,8 +88,17 @@
         }
     }
 
-    // Initial ausführen
-    walkDOM(document.body);
+    // Hauptfunktion für alle Ersetzungen
+    function runReplacements() {
+        replaceUrlPath();
+        walkDOM(document.body);
+    }
+
+    // Automatisch beim Seitenaufruf ausführen
+    runReplacements();
+
+    // Manuell über Tampermonkey-Menü ausführen
+    GM_registerMenuCommand('Texte ersetzen', runReplacements);
 
     // MutationObserver für dynamisch geladene Inhalte
     const observer = new MutationObserver((mutations) => {
