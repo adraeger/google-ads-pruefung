@@ -12,6 +12,8 @@ Das Script ersetzt automatisch folgende Begriffe:
 | Skillshop | *(entfernt)* |
 | Prüfung | Übung |
 | Test | Übung |
+| Verbleibende Zeit: | Verbleibende Übungszeit: |
+| Verbleibende Versuche: | Übung: |
 
 ## Installation
 

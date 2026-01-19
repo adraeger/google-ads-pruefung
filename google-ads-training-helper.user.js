@@ -49,6 +49,18 @@
             changed = true;
         }
 
+        // Verbleibende Zeit durch Verbleibende Übungszeit ersetzen
+        if (/Verbleibende Zeit:/g.test(text)) {
+            text = text.replace(/Verbleibende Zeit:/g, 'Verbleibende Übungszeit:');
+            changed = true;
+        }
+
+        // Verbleibende Versuche durch Übung ersetzen
+        if (/Verbleibende Versuche:/g.test(text)) {
+            text = text.replace(/Verbleibende Versuche:/g, 'Übung:');
+            changed = true;
+        }
+
         if (changed) {
             node.nodeValue = text.trim().replace(/\s+/g, ' ');
         }
